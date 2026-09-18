@@ -1,4 +1,55 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Designing a Feeling: how Anastasia Ioseliani built Oasis’ social media presence."><title>Designing a Feeling — Anastasia Ioseliani</title><link rel="stylesheet" href="article.css"></head>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Designing a Feeling: how Anastasia Ioseliani built Oasis’ social media presence."><title>Designing a Feeling — Anastasia Ioseliani</title><link rel="stylesheet" href="article.css">
+<style id="drawn-arrow-style">
+.drawn-arrow{
+  display:inline-block;
+  position:relative;
+  width:1.05em;
+  height:.72em;
+  margin:0 .12em;
+  vertical-align:-.04em;
+  color:currentColor;
+  flex:0 0 auto;
+}
+.drawn-arrow::before{
+  content:"";
+  position:absolute;
+  left:.04em;
+  right:.18em;
+  top:50%;
+  height:1.4px;
+  background:currentColor;
+  transform:translateY(-50%);
+}
+.drawn-arrow::after{
+  content:"";
+  position:absolute;
+  right:.03em;
+  top:50%;
+  width:.38em;
+  height:.38em;
+  border-top:1.4px solid currentColor;
+  border-right:1.4px solid currentColor;
+  transform:translateY(-50%) rotate(45deg);
+  transform-origin:center;
+}
+.drawn-arrow-left{transform:rotate(180deg)}
+.drawn-arrow-down{transform:rotate(90deg)}
+.drawn-arrow-up{transform:rotate(-90deg)}
+.drawn-arrow-up-right{transform:rotate(-45deg)}
+@media(max-width:800px){
+  .drawn-arrow{
+    width:1em;
+    height:.7em;
+    margin:0 .1em;
+  }
+  .drawn-arrow::before{height:1.5px}
+  .drawn-arrow::after{
+    border-top-width:1.5px;
+    border-right-width:1.5px;
+  }
+}
+</style>
+</head>
 <body class="theme-oasis"><div class="progress"></div><nav class="nav"><a href="projects.html">← The Work</a><div class="nav-center"><a href="index.html">Home</a><a href="cv.html">CV</a><a href="projects.html#stories">All stories</a></div><button class="focus-button" type="button" aria-label="Toggle distraction-free reading"></button></nav>
 <header class="hero"><span class="scroll-note">Scroll to read · Issue 01</span><div class="wrap hero-grid"><div><div class="eyebrow caps">Creative direction · Brand · Social</div><h1>Designing a Feeling: Building Oasis’ Social Media Presence</h1><p class="dek">Social media was never about simply posting products. It was about building a calm, intentional and instantly recognisable feeling.</p></div><figure class="cover"><span class="cover-stamp caps">Cover<br>story<br>03 min</span><img src="oasis-lanterns.webp" alt="Pink and blue Oasis silk lanterns photographed from above" decoding="async" fetchpriority="high"></figure></div></header>
 <main class="article-shell"><aside class="rail"><div class="rail-inner"><div class="number">01</div><h2>In this story</h2><nav class="toc"><a href="#role">The role</a><a href="#language">Visual language</a><a href="#audience">Audience</a><a href="#experience">UX experience</a><a href="#execution">Execution</a><a href="#result">Result</a></nav></div></aside>
@@ -12,4 +63,46 @@
 <h2 id="execution" data-no="Chapter 05">Hands-On Execution</h2><p>To maintain full creative control and visual consistency, I personally led and executed multiple photography sessions. Products were photographed across real interiors, capturing them in lived-in spaces rather than staged environments.</p><p>From shooting to editing to final curation, every step was intentional—ensuring that what appeared on social media felt cohesive, considered and unmistakably Oasis.</p>
 <h2 id="result" data-no="Chapter 06">The Result</h2><p>The outcome was a strong, cohesive digital presence that positioned Oasis as more than a store. It became a curated lifestyle and aesthetic experience—consistent across platforms and instantly recognisable to its audience.</p><p>My goal was always clarity and recognition. By paying close attention to visuals, tone and small details, I ensured that Oasis’ social media presence felt natural, intentional and true to the audience it was created for. Social media became an extension of the brand’s identity—not an obligation, but an experience.</p></article>
 <aside class="margin"><div class="margin-card"><span class="caps">Margin note</span><strong>A brand is a feeling repeated with care.</strong><p>Founder-led direction across strategy, photography, writing, analytics and experience.</p><div class="folio">01</div></div></aside></main>
-<section class="next"><div class="wrap next-grid"><div class="caps">Next in the issue · 02</div><div><h2>From Everyday Curiosity to UX Research</h2><a class="next-link" href="article-ux.html">Turn the page →</a></div></div></section><footer class="footer"><span>© <span id="year"></span> Anastasia Ioseliani</span><span>Project Journal · Issue 01</span></footer><script src="article.js"></script></body></html>
+<section class="next"><div class="wrap next-grid"><div class="caps">Next in the issue · 02</div><div><h2>From Everyday Curiosity to UX Research</h2><a class="next-link" href="article-ux.html">Turn the page →</a></div></div></section><footer class="footer"><span>© <span id="year"></span> Anastasia Ioseliani</span><span>Project Journal · Issue 01</span></footer><script src="article.js"></script>
+<script id="drawn-arrow-script">
+(()=>{
+  const dirs={"→":"right","↗":"up-right","↓":"down","←":"left","↑":"up"};
+  const re=/[→↗↓←↑]/;
+  function arrow(ch){
+    const s=document.createElement("span");
+    s.className="drawn-arrow drawn-arrow-"+dirs[ch];
+    s.setAttribute("aria-hidden","true");
+    return s;
+  }
+  function replaceText(node){
+    const value=node.nodeValue;
+    if(!value||!re.test(value)) return;
+    const parent=node.parentElement;
+    if(parent&&parent.closest("script,style,noscript,textarea,svg,.drawn-arrow")) return;
+    const frag=document.createDocumentFragment();
+    value.split(/([→↗↓←↑])/g).forEach(part=>{
+      if(dirs[part]) frag.appendChild(arrow(part));
+      else if(part) frag.appendChild(document.createTextNode(part));
+    });
+    node.replaceWith(frag);
+  }
+  function scan(root){
+    if(!root) return;
+    if(root.nodeType===Node.TEXT_NODE){replaceText(root);return}
+    if(root.nodeType!==Node.ELEMENT_NODE&&root.nodeType!==Node.DOCUMENT_FRAGMENT_NODE) return;
+    if(root.nodeType===Node.ELEMENT_NODE&&root.matches("script,style,noscript,textarea,svg,.drawn-arrow")) return;
+    const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);
+    const nodes=[];
+    while(walker.nextNode()) nodes.push(walker.currentNode);
+    nodes.forEach(replaceText);
+  }
+  scan(document.body);
+  new MutationObserver(mutations=>{
+    for(const m of mutations){
+      if(m.type==="characterData") replaceText(m.target);
+      for(const n of m.addedNodes) scan(n);
+    }
+  }).observe(document.body,{subtree:true,childList:true,characterData:true});
+})();
+</script>
+</body></html>
