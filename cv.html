@@ -67,6 +67,57 @@ a:focus-visible,button:focus-visible{
     @media(max-width:430px){.hero{min-height:950px}.hero-top{margin-bottom:380px}.labyrinth-stage{top:155px;width:110vw;right:-10vw}.labyrinth-tools{transform:translateX(-50%) scale(.88);transform-origin:center}.metric strong{font-size:2.7rem}.scroll-cue span{display:none}}
     @media(prefers-reduced-motion:reduce){.scroll-cue b{animation:none}}
   </style>
+
+<style id="drawn-arrow-style">
+.drawn-arrow{
+  display:inline-block;
+  position:relative;
+  width:1.05em;
+  height:.72em;
+  margin:0 .12em;
+  vertical-align:-.04em;
+  color:currentColor;
+  flex:0 0 auto;
+}
+.drawn-arrow::before{
+  content:"";
+  position:absolute;
+  left:.04em;
+  right:.18em;
+  top:50%;
+  height:1.4px;
+  background:currentColor;
+  transform:translateY(-50%);
+}
+.drawn-arrow::after{
+  content:"";
+  position:absolute;
+  right:.03em;
+  top:50%;
+  width:.38em;
+  height:.38em;
+  border-top:1.4px solid currentColor;
+  border-right:1.4px solid currentColor;
+  transform:translateY(-50%) rotate(45deg);
+  transform-origin:center;
+}
+.drawn-arrow-left{transform:rotate(180deg)}
+.drawn-arrow-down{transform:rotate(90deg)}
+.drawn-arrow-up{transform:rotate(-90deg)}
+.drawn-arrow-up-right{transform:rotate(-45deg)}
+@media(max-width:800px){
+  .drawn-arrow{
+    width:1em;
+    height:.7em;
+    margin:0 .1em;
+  }
+  .drawn-arrow::before{height:1.5px}
+  .drawn-arrow::after{
+    border-top-width:1.5px;
+    border-right-width:1.5px;
+  }
+}
+</style>
 </head>
 <body>
   <div class="progress" aria-hidden="true"></div>
@@ -99,5 +150,47 @@ a:focus-visible,button:focus-visible{
     function count(el){if(el.dataset.done)return;el.dataset.done=1;const end=+el.dataset.count,dur=900,start=performance.now();function tick(now){const p=Math.min(1,(now-start)/dur),v=end*p;el.textContent=(el.dataset.decimal?(v/10).toFixed(1):Math.round(v))+(el.dataset.suffix||'');if(p<1)requestAnimationFrame(tick)}requestAnimationFrame(tick)}
     document.querySelectorAll('.case-button').forEach(btn=>btn.addEventListener('click',()=>{const item=btn.closest('.case'),open=item.classList.toggle('open');btn.setAttribute('aria-expanded',String(open))}));
   </script>
+
+<script id="drawn-arrow-script">
+(()=>{
+  const dirs={"→":"right","↗":"up-right","↓":"down","←":"left","↑":"up"};
+  const re=/[→↗↓←↑]/;
+  function arrow(ch){
+    const s=document.createElement("span");
+    s.className="drawn-arrow drawn-arrow-"+dirs[ch];
+    s.setAttribute("aria-hidden","true");
+    return s;
+  }
+  function replaceText(node){
+    const value=node.nodeValue;
+    if(!value||!re.test(value)) return;
+    const parent=node.parentElement;
+    if(parent&&parent.closest("script,style,noscript,textarea,svg,.drawn-arrow")) return;
+    const frag=document.createDocumentFragment();
+    value.split(/([→↗↓←↑])/g).forEach(part=>{
+      if(dirs[part]) frag.appendChild(arrow(part));
+      else if(part) frag.appendChild(document.createTextNode(part));
+    });
+    node.replaceWith(frag);
+  }
+  function scan(root){
+    if(!root) return;
+    if(root.nodeType===Node.TEXT_NODE){replaceText(root);return}
+    if(root.nodeType!==Node.ELEMENT_NODE&&root.nodeType!==Node.DOCUMENT_FRAGMENT_NODE) return;
+    if(root.nodeType===Node.ELEMENT_NODE&&root.matches("script,style,noscript,textarea,svg,.drawn-arrow")) return;
+    const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);
+    const nodes=[];
+    while(walker.nextNode()) nodes.push(walker.currentNode);
+    nodes.forEach(replaceText);
+  }
+  scan(document.body);
+  new MutationObserver(mutations=>{
+    for(const m of mutations){
+      if(m.type==="characterData") replaceText(m.target);
+      for(const n of m.addedNodes) scan(n);
+    }
+  }).observe(document.body,{subtree:true,childList:true,characterData:true});
+})();
+</script>
 </body>
 </html>
