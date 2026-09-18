@@ -1,4 +1,55 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Bits: talking about money clearly, responsibly and at scale."><title>Bits: Talking About Money Responsibly — Anastasia Ioseliani</title><link rel="stylesheet" href="article.css"></head>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Bits: talking about money clearly, responsibly and at scale."><title>Bits: Talking About Money Responsibly — Anastasia Ioseliani</title><link rel="stylesheet" href="article.css">
+<style id="drawn-arrow-style">
+.drawn-arrow{
+  display:inline-block;
+  position:relative;
+  width:1.05em;
+  height:.72em;
+  margin:0 .12em;
+  vertical-align:-.04em;
+  color:currentColor;
+  flex:0 0 auto;
+}
+.drawn-arrow::before{
+  content:"";
+  position:absolute;
+  left:.04em;
+  right:.18em;
+  top:50%;
+  height:1.4px;
+  background:currentColor;
+  transform:translateY(-50%);
+}
+.drawn-arrow::after{
+  content:"";
+  position:absolute;
+  right:.03em;
+  top:50%;
+  width:.38em;
+  height:.38em;
+  border-top:1.4px solid currentColor;
+  border-right:1.4px solid currentColor;
+  transform:translateY(-50%) rotate(45deg);
+  transform-origin:center;
+}
+.drawn-arrow-left{transform:rotate(180deg)}
+.drawn-arrow-down{transform:rotate(90deg)}
+.drawn-arrow-up{transform:rotate(-90deg)}
+.drawn-arrow-up-right{transform:rotate(-45deg)}
+@media(max-width:800px){
+  .drawn-arrow{
+    width:1em;
+    height:.7em;
+    margin:0 .1em;
+  }
+  .drawn-arrow::before{height:1.5px}
+  .drawn-arrow::after{
+    border-top-width:1.5px;
+    border-right-width:1.5px;
+  }
+}
+</style>
+</head>
 <body class="theme-bits"><div class="progress"></div><nav class="nav"><a href="projects.html">← The Work</a><div class="nav-center"><a href="index.html">Home</a><a href="cv.html">CV</a><a href="projects.html#stories">All stories</a></div><button class="focus-button" type="button" aria-label="Toggle distraction-free reading"></button></nav>
 <header class="hero"><span class="scroll-note">Scroll to read · Issue 01</span><div class="wrap hero-grid"><div><div class="eyebrow caps">Fintech · AI · CX · Compliance</div><h1>Bits: Talking About Money Responsibly</h1><p class="dek">Clear, human financial education at scale—inside a regulated product environment spanning the UK and US.</p></div><figure class="cover"><span class="cover-stamp caps">Feature<br>04 / 04<br>02 min</span><img src="bits-social-grid.webp" alt="Bits content about customer support, fraud and financial education" decoding="async" fetchpriority="high"></figure></div></header>
 <main class="article-shell"><aside class="rail"><div class="rail-inner"><div class="number">04</div><h2>In this story</h2><nav class="toc"><a href="#context">The context</a><a href="#compliance">FCA communication</a><a href="#product">Introducing Bits</a><a href="#message">Owning the message</a><a href="#reflection">Reflection</a></nav></div></aside>
@@ -11,4 +62,46 @@
 <h2 id="message" data-no="Chapter 04">From Strategy to Social: Owning the Message</h2><p>Alongside multiple operational and product initiatives, I was responsible for crafting and managing the social content that introduced Bits to our audience.</p><ul><li><span>Translating a complex AI product into clear, approachable messaging.</span></li><li><span>Educating users on how Bits could support healthier financial habits.</span></li><li><span>Maintaining a consistent brand voice across platforms.</span></li><li><span>Managing multiple projects without compromising quality or compliance.</span></li></ul><p>Social media wasn’t treated as a promotional afterthought—it was an extension of customer experience. Every post was designed to inform, reassure and empower.</p>
 <h2 id="reflection" data-no="Chapter 05">The Work Behind the Words</h2><p>This work brought together product deployment, regulated communication, market positioning and operational judgement. The visible output was content; underneath it sat research, cross-functional alignment and careful decisions about what a financial product should—and should not—say.</p></article>
 <aside class="margin"><div class="margin-card"><span class="caps">Margin note</span><strong>Every word carries operational weight.</strong><p>Human communication, regulatory care and product thinking across two markets.</p><div class="folio">04</div></div></aside></main>
-<section class="next"><div class="wrap next-grid"><div class="caps">Back to the cover · Issue 01</div><div><h2>Explore every story in The Work</h2><a class="next-link" href="projects.html">Return to the magazine →</a></div></div></section><footer class="footer"><span>© <span id="year"></span> Anastasia Ioseliani</span><span>Project Journal · Issue 01</span></footer><script src="article.js"></script></body></html>
+<section class="next"><div class="wrap next-grid"><div class="caps">Back to the cover · Issue 01</div><div><h2>Explore every story in The Work</h2><a class="next-link" href="projects.html">Return to the magazine →</a></div></div></section><footer class="footer"><span>© <span id="year"></span> Anastasia Ioseliani</span><span>Project Journal · Issue 01</span></footer><script src="article.js"></script>
+<script id="drawn-arrow-script">
+(()=>{
+  const dirs={"→":"right","↗":"up-right","↓":"down","←":"left","↑":"up"};
+  const re=/[→↗↓←↑]/;
+  function arrow(ch){
+    const s=document.createElement("span");
+    s.className="drawn-arrow drawn-arrow-"+dirs[ch];
+    s.setAttribute("aria-hidden","true");
+    return s;
+  }
+  function replaceText(node){
+    const value=node.nodeValue;
+    if(!value||!re.test(value)) return;
+    const parent=node.parentElement;
+    if(parent&&parent.closest("script,style,noscript,textarea,svg,.drawn-arrow")) return;
+    const frag=document.createDocumentFragment();
+    value.split(/([→↗↓←↑])/g).forEach(part=>{
+      if(dirs[part]) frag.appendChild(arrow(part));
+      else if(part) frag.appendChild(document.createTextNode(part));
+    });
+    node.replaceWith(frag);
+  }
+  function scan(root){
+    if(!root) return;
+    if(root.nodeType===Node.TEXT_NODE){replaceText(root);return}
+    if(root.nodeType!==Node.ELEMENT_NODE&&root.nodeType!==Node.DOCUMENT_FRAGMENT_NODE) return;
+    if(root.nodeType===Node.ELEMENT_NODE&&root.matches("script,style,noscript,textarea,svg,.drawn-arrow")) return;
+    const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);
+    const nodes=[];
+    while(walker.nextNode()) nodes.push(walker.currentNode);
+    nodes.forEach(replaceText);
+  }
+  scan(document.body);
+  new MutationObserver(mutations=>{
+    for(const m of mutations){
+      if(m.type==="characterData") replaceText(m.target);
+      for(const n of m.addedNodes) scan(n);
+    }
+  }).observe(document.body,{subtree:true,childList:true,characterData:true});
+})();
+</script>
+</body></html>
