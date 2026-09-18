@@ -251,6 +251,57 @@ a:focus-visible,button:focus-visible{
 @media(max-width:430px){.nav-cta{font-size:.62rem}.hero h1{font-size:16.5vw}.hero-intro{font-size:.82rem}.scroll-cue span{display:none}.welcome,.journal-gateway,.approach,.projects{padding:64px 0}.lantern-card{min-height:300px}.cv-gateway{min-height:135px}.cv-gateway strong{font-size:2.05rem}.method-node{width:76px;height:76px}.method-node span{font-size:.88rem}.method-output{padding:16px 18px}.orbit-label{font-size:.54rem;padding:6px 9px}}
     .industry-grid{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--line);margin-top:42px}.industry-card{position:relative;min-height:430px;padding:30px 26px;display:flex;flex-direction:column;border-right:1px solid var(--line);background:rgba(255,253,250,.7);transition:.35s}.industry-card:last-child{border-right:0}.industry-card:hover{background:#eef5fb;transform:translateY(-6px)}.industry-no{position:absolute;right:22px;top:22px;font-family:Georgia,serif;font-size:2rem;color:rgba(30,41,69,.18)}.industry-card small{font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);padding-right:45px}.industry-card h3{font-family:Georgia,serif;font-size:2.35rem;font-weight:400;margin:58px 0 18px}.industry-card p{margin:0;color:var(--muted);line-height:1.58}.industry-ux{margin-top:auto;padding-top:28px;border-top:1px solid var(--line);display:grid;gap:7px}.industry-ux b{font-size:.62rem;letter-spacing:.14em;text-transform:uppercase}.industry-ux span{font-family:Georgia,serif;font-size:1rem;line-height:1.25}.industries .cv-gateway{margin-top:18px}@media(max-width:780px){.industry-grid{grid-template-columns:1fr}.industry-card{min-height:330px;border-right:0;border-bottom:1px solid var(--line)}.industry-card:last-child{border-bottom:0}.industry-card h3{margin-top:42px}.industries .welcome-lead{max-width:none}}.lantern-ux{display:block;margin-top:12px;padding-top:10px;border-top:1px solid var(--line);font-size:.72rem;line-height:1.35;color:var(--muted);letter-spacing:.03em}@media(prefers-reduced-motion:reduce){.scroll-cue b{animation:none}}
   </style>
+
+<style id="drawn-arrow-style">
+.drawn-arrow{
+  display:inline-block;
+  position:relative;
+  width:1.05em;
+  height:.72em;
+  margin:0 .12em;
+  vertical-align:-.04em;
+  color:currentColor;
+  flex:0 0 auto;
+}
+.drawn-arrow::before{
+  content:"";
+  position:absolute;
+  left:.04em;
+  right:.18em;
+  top:50%;
+  height:1.4px;
+  background:currentColor;
+  transform:translateY(-50%);
+}
+.drawn-arrow::after{
+  content:"";
+  position:absolute;
+  right:.03em;
+  top:50%;
+  width:.38em;
+  height:.38em;
+  border-top:1.4px solid currentColor;
+  border-right:1.4px solid currentColor;
+  transform:translateY(-50%) rotate(45deg);
+  transform-origin:center;
+}
+.drawn-arrow-left{transform:rotate(180deg)}
+.drawn-arrow-down{transform:rotate(90deg)}
+.drawn-arrow-up{transform:rotate(-90deg)}
+.drawn-arrow-up-right{transform:rotate(-45deg)}
+@media(max-width:800px){
+  .drawn-arrow{
+    width:1em;
+    height:.7em;
+    margin:0 .1em;
+  }
+  .drawn-arrow::before{height:1.5px}
+  .drawn-arrow::after{
+    border-top-width:1.5px;
+    border-right-width:1.5px;
+  }
+}
+</style>
 </head>
 <body>
   <nav class="nav"><a class="brand" href="#top">Anastasia Ioseliani</a><div class="nav-links"><a href="#about">About</a><a href="projects.html">Projects</a><a href="#play">Play</a></div><a class="nav-cta" href="cv.html">View CV ↗</a></nav>
@@ -297,5 +348,47 @@ a:focus-visible,button:focus-visible{
     const portalField=document.getElementById('portalField'),projectPortal=document.getElementById('projectPortal');portalField.addEventListener('pointermove',e=>{const r=portalField.getBoundingClientRect(),x=(e.clientX-r.left-r.width/2)*.16,y=(e.clientY-r.top-r.height/2)*.16;projectPortal.style.transform=`translate(${x}px,${y}px) rotate(${x*.025}deg)`});portalField.addEventListener('pointerleave',()=>projectPortal.style.transform='translate(0,0) rotate(0)');
     const game=document.querySelector('.game'),idea=document.querySelector('.idea'),scoreEl=document.getElementById('score');let score=0;function moveIdea(){const pad=70,w=game.clientWidth,h=game.clientHeight;idea.style.left=pad+Math.random()*Math.max(20,w-pad*2)+'px';idea.style.top=Math.max(210,pad+Math.random()*Math.max(20,h-pad*2))+'px'}idea.addEventListener('click',()=>{score=Math.min(5,score+1);scoreEl.textContent=score;if(score===5){document.querySelector('.game h2').innerHTML='Good idea.<br><em>Caught.</em>';document.querySelector('.game p').textContent='Curiosity, timing and persistence—small things that move work forward.';idea.hidden=true}else moveIdea()});moveIdea();
   </script>
+
+<script id="drawn-arrow-script">
+(()=>{
+  const dirs={"→":"right","↗":"up-right","↓":"down","←":"left","↑":"up"};
+  const re=/[→↗↓←↑]/;
+  function arrow(ch){
+    const s=document.createElement("span");
+    s.className="drawn-arrow drawn-arrow-"+dirs[ch];
+    s.setAttribute("aria-hidden","true");
+    return s;
+  }
+  function replaceText(node){
+    const value=node.nodeValue;
+    if(!value||!re.test(value)) return;
+    const parent=node.parentElement;
+    if(parent&&parent.closest("script,style,noscript,textarea,svg,.drawn-arrow")) return;
+    const frag=document.createDocumentFragment();
+    value.split(/([→↗↓←↑])/g).forEach(part=>{
+      if(dirs[part]) frag.appendChild(arrow(part));
+      else if(part) frag.appendChild(document.createTextNode(part));
+    });
+    node.replaceWith(frag);
+  }
+  function scan(root){
+    if(!root) return;
+    if(root.nodeType===Node.TEXT_NODE){replaceText(root);return}
+    if(root.nodeType!==Node.ELEMENT_NODE&&root.nodeType!==Node.DOCUMENT_FRAGMENT_NODE) return;
+    if(root.nodeType===Node.ELEMENT_NODE&&root.matches("script,style,noscript,textarea,svg,.drawn-arrow")) return;
+    const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);
+    const nodes=[];
+    while(walker.nextNode()) nodes.push(walker.currentNode);
+    nodes.forEach(replaceText);
+  }
+  scan(document.body);
+  new MutationObserver(mutations=>{
+    for(const m of mutations){
+      if(m.type==="characterData") replaceText(m.target);
+      for(const n of m.addedNodes) scan(n);
+    }
+  }).observe(document.body,{subtree:true,childList:true,characterData:true});
+})();
+</script>
 </body>
 </html>
