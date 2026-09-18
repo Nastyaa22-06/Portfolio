@@ -104,6 +104,34 @@ a:focus-visible,button:focus-visible{
     margin-top:34px;
   }
 }
+
+@media(min-width:801px){
+  .labyrinth-stage .labyrinth-exit{
+    position:absolute!important;
+    left:50%!important;
+    right:auto!important;
+    top:calc(100% + 12px)!important;
+    bottom:auto!important;
+    transform:translateX(-50%)!important;
+    z-index:15!important;
+    white-space:nowrap;
+    background:rgba(248,245,239,.96)!important;
+    color:var(--ink)!important;
+    backdrop-filter:blur(10px);
+    -webkit-backdrop-filter:blur(10px);
+    box-shadow:0 8px 24px rgba(38,49,78,.12)!important;
+  }
+  .labyrinth-stage .labyrinth-exit:hover{
+    background:var(--ink)!important;
+    color:var(--white)!important;
+    transform:translateX(-50%) translateY(3px)!important;
+  }
+
+  /* Remove the wide gap/divider between the hero and the next section */
+  .metrics{
+    margin-top:0!important;
+  }
+}
 </style>
   <style>
     .hero:before{opacity:1;mask-image:none;background-image:linear-gradient(rgba(98,143,184,.13) 1px,transparent 1px),linear-gradient(90deg,rgba(98,143,184,.13) 1px,transparent 1px),linear-gradient(rgba(70,118,164,.2) 1px,transparent 1px),linear-gradient(90deg,rgba(70,118,164,.2) 1px,transparent 1px);background-size:18px 18px,18px 18px,90px 90px,90px 90px}.labyrinth-stage{z-index:2}.labyrinth-stage:before{display:none}.labyrinth-board{background:transparent;filter:none}.labyrinth-line>path[fill-rule="evenodd"],.labyrinth-line>path[stroke="#fffdfa"]{display:none}.labyrinth-line g[clip-path]{stroke-width:6;opacity:.9}.hero-inner{z-index:3}.maze-guide{stroke:#283454!important;stroke-width:6!important;stroke-dasharray:none;opacity:.9;filter:none;animation:none}.labyrinth-caption{max-width:245px}.hero-actions .labyrinth-exit{position:static;right:auto;bottom:auto;min-height:48px;padding:0 22px;font-size:.75rem;background:var(--peach);box-shadow:none}.hero-actions .labyrinth-exit span{transform:none}.hero-actions .labyrinth-exit:hover{transform:translateY(-2px)}.hero-actions .labyrinth-exit:hover span{transform:translateX(3px)}.labyrinth-stage.solved .labyrinth-caption{background:var(--navy);color:var(--white)}.labyrinth-stage.solved~.hero-inner .labyrinth-exit{background:var(--navy);color:var(--white)}.scroll-cue{position:absolute;z-index:20;left:50%;bottom:18px;transform:translateX(-50%);display:flex;align-items:center;gap:10px;min-height:43px;padding:0 16px;border:1px solid rgba(40,52,84,.55);border-radius:999px;background:rgba(255,253,250,.9);box-shadow:0 10px 28px rgba(40,52,84,.12);backdrop-filter:blur(10px);font-size:.64rem;letter-spacing:.15em;text-transform:uppercase;transition:.25s}.scroll-cue b{font-size:1.05rem;animation:scrollNudge 1.6s ease-in-out infinite}.scroll-cue:hover{background:var(--navy);color:var(--white);transform:translate(-50%,3px)}@keyframes scrollNudge{0%,100%{transform:translateY(-2px)}50%{transform:translateY(4px)}}
@@ -179,7 +207,7 @@ a:focus-visible,button:focus-visible{
   <footer><div class="wrap footer"><span>© <span id="year"></span> Anastasia Ioseliani</span><a href="index.html">Homepage ↗</a><a href="projects.html">Projects ↗</a></div></footer>
   <script>
     document.getElementById('year').textContent=new Date().getFullYear();
-    const progress=document.querySelector('.progress'),hero=document.querySelector('.hero'),stage=document.querySelector('.labyrinth-stage'),labyrinthCaption={set innerHTML(v){},get innerHTML(){return''}},labyrinthExit=document.querySelector('.labyrinth-exit');const mazePaths=[...document.querySelector('.labyrinth-line g[clip-path]').querySelectorAll('path')],guidePath=mazePaths[0],wallRoutes=['M185 235V165H255V112','M250 390H180V458H245V505','M320 160V102H385','M405 160H470V105H535','M405 265H365V330H430V382','M485 265H548V190H622V245','M585 355H650V420H610V482','M515 445H442V505H390','M185 305H145V220H205','M250 235H300V285H350','M320 390H380V450H420','M485 355H455V410H390','M548 190V135H595','M650 355V295H610'];guidePath.setAttribute('d','M126 305H185V235H250V390H320V160H405V265H485V355H585V445H515V500L540 535');guidePath.classList.add('maze-guide');mazePaths.slice(1).forEach((path,i)=>{if(wallRoutes[i])path.setAttribute('d',wallRoutes[i]);else path.style.display='none'});labyrinthExit.innerHTML='Skip puzzle · View CV <span aria-hidden="true">↓</span>';const mazeStatus=document.getElementById('mazeStatus');const heroCvButton=document.querySelector('.hero-actions .button');heroCvButton.replaceWith(labyrinthExit);const scrollCue=document.createElement('a');scrollCue.className='scroll-cue';scrollCue.href='#profile';scrollCue.setAttribute('aria-label','Scroll down to the CV');scrollCue.innerHTML='<span>Scroll to CV</span><b aria-hidden="true">↓</b>';hero.append(scrollCue);let tx=0,ty=0,cx=0,cy=0;
+    const progress=document.querySelector('.progress'),hero=document.querySelector('.hero'),stage=document.querySelector('.labyrinth-stage'),labyrinthCaption={set innerHTML(v){},get innerHTML(){return''}},labyrinthExit=document.querySelector('.labyrinth-exit');const mazePaths=[...document.querySelector('.labyrinth-line g[clip-path]').querySelectorAll('path')],guidePath=mazePaths[0],wallRoutes=['M185 235V165H255V112','M250 390H180V458H245V505','M320 160V102H385','M405 160H470V105H535','M405 265H365V330H430V382','M485 265H548V190H622V245','M585 355H650V420H610V482','M515 445H442V505H390','M185 305H145V220H205','M250 235H300V285H350','M320 390H380V450H420','M485 355H455V410H390','M548 190V135H595','M650 355V295H610'];guidePath.setAttribute('d','M126 305H185V235H250V390H320V160H405V265H485V355H585V445H515V500L540 535');guidePath.classList.add('maze-guide');mazePaths.slice(1).forEach((path,i)=>{if(wallRoutes[i])path.setAttribute('d',wallRoutes[i]);else path.style.display='none'});labyrinthExit.innerHTML='Skip puzzle · View CV <span aria-hidden="true">↓</span>';const mazeStatus=document.getElementById('mazeStatus');const scrollCue=document.createElement('a');scrollCue.className='scroll-cue';scrollCue.href='#profile';scrollCue.setAttribute('aria-label','Scroll down to the CV');scrollCue.innerHTML='<span>Scroll to CV</span><b aria-hidden="true">↓</b>';hero.append(scrollCue);let tx=0,ty=0,cx=0,cy=0;
     addEventListener('scroll',()=>{const d=document.documentElement;progress.style.width=(scrollY/(d.scrollHeight-innerHeight)*100)+'%';const y=Math.min(scrollY*.08,55);stage.style.setProperty('--py',y+'px');stage.style.setProperty('--br',(-1+scrollY*.003)+'deg')},{passive:true});
     hero.addEventListener('pointermove',e=>{if(labyrinthDrawing)return;const r=hero.getBoundingClientRect();tx=(e.clientX/r.width-.5)*24;ty=(e.clientY/r.height-.5)*20;hero.style.setProperty('--gx',e.clientX/r.width*100+'%');hero.style.setProperty('--gy',e.clientY/r.height*100+'%')});
     function float(){cx+=(tx-cx)*.07;cy+=(ty-cy)*.07;stage.style.setProperty('--px',cx+'px');if(scrollY<30)stage.style.setProperty('--py',cy+'px');requestAnimationFrame(float)}float();
