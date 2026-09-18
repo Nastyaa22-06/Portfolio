@@ -18,6 +18,57 @@
     @media(max-width:480px){.wrap{width:min(100% - 28px,1220px)}.brand,.nav-cv{font-size:.61rem!important}.mast h1{font-size:20vw}.issue-line{gap:12px}.issue-line span:last-child{text-align:right}.mast-intro{font-size:1.12rem!important}.feature-image{min-height:300px}.feature h3{font-size:2.25rem}.story-photo,.story:nth-child(2) .story-photo{height:280px}.case-grid{grid-template-columns:1fr}.case{min-height:220px}.playground{padding:68px 0}.play-head h2{font-size:3rem}.mini-game h3{font-size:1.9rem}.puzzle-bank{grid-template-columns:1fr}.memory-grid{grid-template-columns:repeat(2,1fr)}.game-button,.puzzle-piece,.memory-card{min-height:48px}.footer h2{font-size:3rem}}
   </style>
   <style>.puzzle-piece.placed{animation:none;background:var(--white)}.story img[src*="grid.webp"]{object-position:top}</style>
+
+<style id="drawn-arrow-style">
+.drawn-arrow{
+  display:inline-block;
+  position:relative;
+  width:1.05em;
+  height:.72em;
+  margin:0 .12em;
+  vertical-align:-.04em;
+  color:currentColor;
+  flex:0 0 auto;
+}
+.drawn-arrow::before{
+  content:"";
+  position:absolute;
+  left:.04em;
+  right:.18em;
+  top:50%;
+  height:1.4px;
+  background:currentColor;
+  transform:translateY(-50%);
+}
+.drawn-arrow::after{
+  content:"";
+  position:absolute;
+  right:.03em;
+  top:50%;
+  width:.38em;
+  height:.38em;
+  border-top:1.4px solid currentColor;
+  border-right:1.4px solid currentColor;
+  transform:translateY(-50%) rotate(45deg);
+  transform-origin:center;
+}
+.drawn-arrow-left{transform:rotate(180deg)}
+.drawn-arrow-down{transform:rotate(90deg)}
+.drawn-arrow-up{transform:rotate(-90deg)}
+.drawn-arrow-up-right{transform:rotate(-45deg)}
+@media(max-width:800px){
+  .drawn-arrow{
+    width:1em;
+    height:.7em;
+    margin:0 .1em;
+  }
+  .drawn-arrow::before{height:1.5px}
+  .drawn-arrow::after{
+    border-top-width:1.5px;
+    border-right-width:1.5px;
+  }
+}
+</style>
 </head>
 <body>
   <nav class="nav"><a href="index.html">← Homepage</a><div class="nav-mid"><a href="#stories">Stories</a><a href="#case-notes">Case notes</a><a href="#playground">Play</a></div><a class="nav-cv" href="cv.html">View CV ↗</a></nav>
@@ -38,5 +89,47 @@
     const puzzlePieces=[...document.querySelectorAll('.puzzle-piece')],puzzleSlots=[...document.querySelectorAll('.puzzle-slot')],puzzleScore=document.getElementById('puzzleScore'),puzzleMessage=document.getElementById('puzzleMessage');let puzzleStep=0;function resetPuzzle(){puzzleStep=0;puzzleScore.textContent='0';puzzleMessage.textContent='Choose the piece that comes first.';puzzleMessage.classList.remove('complete');puzzleSlots.forEach((slot,i)=>{slot.classList.remove('filled');slot.innerHTML=`<span>Step 0${i+1}</span><b>?</b>`});puzzlePieces.forEach(piece=>{piece.classList.remove('placed','wrong');piece.disabled=false})}puzzlePieces.forEach(piece=>piece.addEventListener('click',()=>{if(piece.disabled)return;const step=Number(piece.dataset.step);if(step!==puzzleStep){piece.classList.remove('wrong');void piece.offsetWidth;piece.classList.add('wrong');puzzleMessage.textContent=puzzleStep===0?'Start by finding the signal.':'That piece belongs later in the path.';return}const slot=puzzleSlots[puzzleStep];slot.classList.add('filled');slot.innerHTML=`<span>Step 0${puzzleStep+1}</span><b>${piece.dataset.label}</b>`;piece.classList.add('placed');piece.disabled=true;puzzleStep+=1;puzzleScore.textContent=String(puzzleStep);if(puzzleStep===4){puzzleMessage.textContent='Connected: observe → define → build → learn.';puzzleMessage.classList.add('complete')}else puzzleMessage.textContent=`Great. Choose step ${puzzleStep+1}.`}));document.getElementById('resetPuzzle').addEventListener('click',resetPuzzle);resetPuzzle();
     const memoryCards=[...document.querySelectorAll('.memory-card')],pairScore=document.getElementById('pairScore'),moveScore=document.getElementById('moveScore'),memoryComplete=document.getElementById('memoryComplete');let openCards=[],pairs=0,moves=0,locked=false;function resetMemory(){openCards=[];pairs=0;moves=0;locked=false;pairScore.textContent='0';moveScore.textContent='0';memoryComplete.textContent='';memoryCards.forEach(card=>{card.classList.remove('open','matched');card.textContent='?';card.setAttribute('aria-pressed','false')})}memoryCards.forEach(card=>card.addEventListener('click',()=>{if(locked||card.classList.contains('matched')||card.classList.contains('open'))return;card.classList.add('open');card.textContent=card.dataset.label;card.setAttribute('aria-pressed','true');openCards.push(card);if(openCards.length<2)return;moves+=1;moveScore.textContent=moves;const [a,b]=openCards;if(a.dataset.pair===b.dataset.pair){a.classList.add('matched');b.classList.add('matched');openCards=[];pairs+=1;pairScore.textContent=pairs;if(pairs===3)memoryComplete.textContent='Method matched. Now go make something useful.'}else{locked=true;setTimeout(()=>{a.classList.remove('open');b.classList.remove('open');a.textContent='?';b.textContent='?';a.setAttribute('aria-pressed','false');b.setAttribute('aria-pressed','false');openCards=[];locked=false},650)}}));document.getElementById('resetMemory').addEventListener('click',resetMemory);resetMemory();
   </script>
+
+<script id="drawn-arrow-script">
+(()=>{
+  const dirs={"→":"right","↗":"up-right","↓":"down","←":"left","↑":"up"};
+  const re=/[→↗↓←↑]/;
+  function arrow(ch){
+    const s=document.createElement("span");
+    s.className="drawn-arrow drawn-arrow-"+dirs[ch];
+    s.setAttribute("aria-hidden","true");
+    return s;
+  }
+  function replaceText(node){
+    const value=node.nodeValue;
+    if(!value||!re.test(value)) return;
+    const parent=node.parentElement;
+    if(parent&&parent.closest("script,style,noscript,textarea,svg,.drawn-arrow")) return;
+    const frag=document.createDocumentFragment();
+    value.split(/([→↗↓←↑])/g).forEach(part=>{
+      if(dirs[part]) frag.appendChild(arrow(part));
+      else if(part) frag.appendChild(document.createTextNode(part));
+    });
+    node.replaceWith(frag);
+  }
+  function scan(root){
+    if(!root) return;
+    if(root.nodeType===Node.TEXT_NODE){replaceText(root);return}
+    if(root.nodeType!==Node.ELEMENT_NODE&&root.nodeType!==Node.DOCUMENT_FRAGMENT_NODE) return;
+    if(root.nodeType===Node.ELEMENT_NODE&&root.matches("script,style,noscript,textarea,svg,.drawn-arrow")) return;
+    const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);
+    const nodes=[];
+    while(walker.nextNode()) nodes.push(walker.currentNode);
+    nodes.forEach(replaceText);
+  }
+  scan(document.body);
+  new MutationObserver(mutations=>{
+    for(const m of mutations){
+      if(m.type==="characterData") replaceText(m.target);
+      for(const n of m.addedNodes) scan(n);
+    }
+  }).observe(document.body,{subtree:true,childList:true,characterData:true});
+})();
+</script>
 </body>
 </html>
