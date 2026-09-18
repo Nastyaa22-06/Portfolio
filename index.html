@@ -116,6 +116,64 @@
     pointer-events:none!important;
   }
 }
+
+a:focus-visible,button:focus-visible{
+  outline:2px solid var(--ink);
+  outline-offset:4px;
+}
+.mobile-continue{display:none}
+@media(max-width:780px){
+  .nav{
+    background:rgba(237,244,251,.84);
+    backdrop-filter:blur(12px);
+    -webkit-backdrop-filter:blur(12px);
+    border-bottom:1px solid rgba(30,41,69,.10);
+    mix-blend-mode:normal!important;
+  }
+  .nav-cta{
+    min-height:44px;
+    display:inline-flex;
+    align-items:center;
+  }
+  .mobile-continue{
+    display:inline-flex;
+    position:absolute;
+    z-index:12;
+    left:50%;
+    bottom:116px;
+    transform:translateX(-50%);
+    min-height:44px;
+    padding:0 17px;
+    border:1px solid var(--ink);
+    border-radius:999px;
+    background:rgba(248,246,240,.92);
+    align-items:center;
+    justify-content:center;
+    font-size:.66rem;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    white-space:nowrap;
+  }
+  .hero.mobile-draw-on .mobile-continue{display:none}
+  .hero.mobile-draw-on .mobile-clear-page{
+    position:fixed!important;
+    left:16px!important;
+    right:auto!important;
+    bottom:calc(18px + env(safe-area-inset-bottom))!important;
+    transform:none!important;
+    min-height:48px!important;
+    z-index:40!important;
+    box-shadow:0 8px 24px rgba(30,41,69,.14);
+  }
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{
+    scroll-behavior:auto!important;
+    animation-duration:.01ms!important;
+    animation-iteration-count:1!important;
+    transition-duration:.01ms!important;
+  }
+}
 </style>
   <style>
     .hero{background-color:#f4f9fd;background-image:linear-gradient(rgba(98,143,184,.13) 1px,transparent 1px),linear-gradient(90deg,rgba(98,143,184,.13) 1px,transparent 1px),linear-gradient(rgba(70,118,164,.2) 1px,transparent 1px),linear-gradient(90deg,rgba(70,118,164,.2) 1px,transparent 1px);background-size:22px 22px,22px 22px,110px 110px,110px 110px}.pen-cursor{width:420px;height:280px;transform:translate(-96%,-96%);filter:drop-shadow(0 18px 18px rgba(30,41,69,.2))}.scroll-cue{position:absolute;z-index:8;left:50%;bottom:18px;transform:translateX(-50%);display:flex;align-items:center;gap:10px;min-height:43px;padding:0 16px;border:1px solid rgba(40,52,84,.55);border-radius:999px;background:rgba(255,253,250,.9);box-shadow:0 10px 28px rgba(40,52,84,.12);backdrop-filter:blur(10px);font-size:.64rem;letter-spacing:.15em;text-transform:uppercase;transition:.25s}.scroll-cue b{font-size:1.05rem;animation:scrollNudge 1.6s ease-in-out infinite}.scroll-cue:hover{background:var(--ink);color:var(--cream);transform:translate(-50%,3px)}@keyframes scrollNudge{0%,100%{transform:translateY(-2px)}50%{transform:translateY(4px)}}
@@ -144,7 +202,7 @@
     <path d="M90 285v15"/>
     <path d="M78 300h24"/>
   </g>
-</svg><img class="pen-cursor" src="cool-blue-pencil.png" alt="Blue pencil" aria-hidden="true"><button class="mobile-put-down" id="mobilePutDown" type="button">Put the pen down</button><button class="mobile-clear-page" id="mobileClearPage" type="button">Clear page</button><div class="wrap hero-content"><div class="hero-top"><div class="label">Portfolio / 2026</div><p class="hero-intro">Operations, customer experience and AI—approached with curiosity, judgement and practical execution.</p></div><h1><span>Practical</span><span>digital</span><span>approach.</span></h1><div class="hero-bottom"><p class="hero-instruction">Move the blue pencil across the grid. Press and drag to leave your mark.</p><div class="draw-tools"><button class="pill active" id="penTool" type="button">Pencil</button><button class="pill" id="clearTool" type="button">Clear page</button><a class="pill" href="#about">Enter ↓</a></div></div></div></section>
+</svg><img class="pen-cursor" src="cool-blue-pencil.png" alt="Blue pencil" aria-hidden="true"><button class="mobile-put-down" id="mobilePutDown" type="button">Put the pen down</button><button class="mobile-clear-page" id="mobileClearPage" type="button">Clear page</button><a class="mobile-continue" href="#about">Explore the work ↓</a><div class="wrap hero-content"><div class="hero-top"><div class="label">Portfolio / 2026</div><p class="hero-intro">Operations, customer experience and AI—approached with curiosity, judgement and practical execution.</p></div><h1><span>Practical</span><span>digital</span><span>approach.</span></h1><div class="hero-bottom"><p class="hero-instruction">Move the blue pencil across the grid. Press and drag to leave your mark.</p><div class="draw-tools"><button class="pill active" id="penTool" type="button">Pencil</button><button class="pill" id="clearTool" type="button">Clear page</button><a class="pill" href="#about">Enter ↓</a></div></div></div></section>
     <section class="welcome" id="about"><div class="wrap welcome-grid"><div class="label">01 / Industries</div><div class="reveal"><h2>Three industries.<br><em>One practical approach.</em></h2><p class="welcome-lead">Tap the lanterns to discover the industries I’ve worked in—and how UX thinking connects the work.</p><div class="lantern-stage" id="lanternStage"><article class="lantern-card"><button class="lantern-button" type="button" aria-expanded="false"><span class="lantern-number">Healthcare</span><img src="chinese-lantern.png" alt="Lantern for healthcare experience"><span class="lantern-prompt">Tap to discover</span></button><div class="lantern-note"><small>Healthcare · California</small><strong>I help long-term care facilities move complex Medi-Cal cases towards coverage by coordinating facilities, counties, attorneys, POAs and families, preparing TARs and appeals.</strong><span class="lantern-ux">UX: stakeholder journeys · information clarity · workflow design</span></div></article><article class="lantern-card"><button class="lantern-button" type="button" aria-expanded="false"><span class="lantern-number">Fintech</span><img src="chinese-lantern.png" alt="Lantern for fintech experience"><span class="lantern-prompt">Tap to discover</span></button><div class="lantern-note"><small>Fintech · London</small><strong>At Bits, I progressed from support to Assistant Manager, led 10 agents, improved CX processes and trained an AI support agent that handled around 40% of incoming queries.</strong><span class="lantern-ux">UX: customer research · friction analysis · AI support journeys</span></div></article><article class="lantern-card"><button class="lantern-button" type="button" aria-expanded="false"><span class="lantern-number">E-commerce</span><img src="chinese-lantern.png" alt="Lantern for e-commerce experience"><span class="lantern-prompt">Tap to discover</span></button><div class="lantern-note"><small>E-commerce · Tbilisi + Barcelona</small><strong>I founded and ran Oasis TBS, owning the customer journey from Shopify discovery and ordering through support, fulfilment, sourcing, logistics and growth.</strong><span class="lantern-ux">UX: end-to-end journey · usability · conversion · customer feedback</span></div></article></div><a class="cv-gateway" id="cvGateway" href="cv.html"><span class="cv-gateway-copy"><small id="lanternStatus">Tap the lanterns · or enter now</small><strong>Explore my full CV</strong></span><span class="cv-gateway-arrow">↗</span></a></div></div></section>
 <section class="journal-gateway"><div class="wrap"><div class="journal-head reveal"><div class="label">Stories / Field notes</div><h2>Read the ideas.<br><em>Enter the work.</em></h2></div><div class="journal-field reveal" id="journalField"><span class="abstract-disc"></span><span class="abstract-square"></span><span class="abstract-star"></span><a class="story-chip" href="article-oasis.html"><small>Creative direction</small>Designing a Feeling: Building Oasis</a><a class="story-chip" href="article-ux.html"><small>UX research</small>From Everyday Curiosity to UX</a><a class="story-chip" href="article-travel.html"><small>Digital product</small>End-to-End Travel Booking</a><a class="story-chip" href="article-bits.html"><small>Fintech · AI</small>Talking About Money, Responsibly</a><a class="journal-core" id="journalCore" href="projects.html"><span><span class="tiny">The project journal</span><span class="big">Read every<br>article</span><span class="arrow">↗</span></span></a></div><div class="journal-caption"><span>Move through the field</span><span>Four articles · Projects, process & perspective</span></div></div></section>
     <section class="approach"><div class="wrap"><div class="approach-head reveal"><div class="label">02 / Approach</div><h2>Clear thinking.<br><em>Playful execution.</em></h2></div><div class="method-lab reveal" id="methodLab"><div class="method-path"></div><button class="method-node active" type="button" data-step="0"><span>Observe</span><small>01 / Signal</small></button><button class="method-node" type="button" data-step="1"><span>Structure</span><small>02 / System</small></button><button class="method-node" type="button" data-step="2"><span>Improve</span><small>03 / Proof</small></button><article class="method-note" id="methodNote"><div class="counter" id="methodCounter">Step 01 — Observe</div><h3 id="methodTitle">Find the real problem.</h3><p id="methodCopy">I start with behaviour, patterns and frontline evidence—not assumptions.</p></article><div class="method-hint">Move inside the grid · choose a stage</div><div class="method-output" id="methodOutput"><b id="methodMark">?</b><span id="methodResult">Noise becomes a useful signal</span></div></div></div></section>
