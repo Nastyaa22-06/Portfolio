@@ -291,6 +291,18 @@ a:focus-visible,button:focus-visible{
     pointer-events:none;
   }
 }
+
+@media(min-width:781px){
+  .hero-instruction,
+  .hero-instruction::before{
+    font-family:'Caveat',cursive!important;
+    font-size:1.32rem!important;
+    letter-spacing:0!important;
+    text-transform:none!important;
+    line-height:1.08!important;
+    font-weight:600!important;
+  }
+}
 </style>
   <style>
     .hero{background-color:#c1e1fc;background-image:linear-gradient(rgba(70,118,164,.22) 1px,transparent 1px),linear-gradient(90deg,rgba(70,118,164,.22) 1px,transparent 1px),linear-gradient(rgba(70,118,164,.34) 1px,transparent 1px),linear-gradient(90deg,rgba(70,118,164,.34) 1px,transparent 1px);background-size:22px 22px,22px 22px,110px 110px,110px 110px}.pen-cursor{width:420px;height:280px;transform:translate(-96%,-96%);filter:drop-shadow(0 18px 18px rgba(30,41,69,.2))}.scroll-cue{position:absolute;z-index:8;left:50%;bottom:18px;transform:translateX(-50%);display:flex;align-items:center;gap:10px;min-height:43px;padding:0 16px;border:1px solid rgba(40,52,84,.55);border-radius:999px;background:rgba(255,253,250,.9);box-shadow:0 10px 28px rgba(40,52,84,.12);backdrop-filter:blur(10px);font-size:.64rem;letter-spacing:.15em;text-transform:uppercase;transition:.25s}.scroll-cue b{font-size:1.05rem;animation:scrollNudge 1.6s ease-in-out infinite}.scroll-cue:hover{background:var(--ink);color:var(--cream);transform:translate(-50%,3px)}@keyframes scrollNudge{0%,100%{transform:translateY(-2px)}50%{transform:translateY(4px)}}
@@ -351,6 +363,9 @@ a:focus-visible,button:focus-visible{
   }
 }
 </style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&display=swap" rel="stylesheet">
 </head>
 <body>
   <nav class="nav"><a class="brand" href="#top">Anastasia Ioseliani</a><div class="nav-links"><a href="#about">About</a><a href="projects.html">Projects</a><a href="#play">Play</a></div><a class="nav-cta" href="cv.html">View CV ↗</a></nav>
