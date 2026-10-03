@@ -364,6 +364,84 @@ a:focus-visible,button:focus-visible{
     .joker-mini-stage,.joker-mini-stage:before,.joker-mini-stage:after{animation:none!important}
   }
 </style>
+<style id="joker-grid-installation-style">
+  /* A grid installation inspired by dimensional tape art: original, restrained and card-led. */
+  .joker-mini-stage{
+    top:15.5vh!important;
+    min-height:300px!important;
+    animation:jokerGridStageFloat 8s ease-in-out infinite!important;
+    transform-origin:50% 50%!important;
+  }
+  .joker-mini-stage:before{
+    inset:-4% -5% -6%!important;
+    z-index:0!important;
+    border:1px solid rgba(30,41,69,.14)!important;
+    border-radius:2px!important;
+    background-color:rgba(229,238,248,.24)!important;
+    background-image:linear-gradient(rgba(30,41,69,.12) 1px,transparent 1px),linear-gradient(90deg,rgba(30,41,69,.12) 1px,transparent 1px)!important;
+    background-size:29px 29px!important;
+    box-shadow:0 24px 48px rgba(30,41,69,.09)!important;
+    filter:none!important;
+    opacity:.9!important;
+    mix-blend-mode:normal!important;
+    backdrop-filter:blur(3px)!important;
+    -webkit-backdrop-filter:blur(3px)!important;
+    animation:jokerGridPlane 10s ease-in-out infinite alternate!important;
+  }
+  .joker-mini-stage:after{
+    width:27px!important;height:27px!important;left:auto!important;right:18%!important;top:16%!important;
+    z-index:1!important;
+    border:1px solid rgba(30,41,69,.18)!important;
+    border-radius:1px!important;
+    background:rgba(255,253,250,.78)!important;
+    box-shadow:
+      5px 7px 0 rgba(30,41,69,.13),
+      -58px 30px 0 rgba(222,223,240,.8),-53px 37px 0 rgba(30,41,69,.13),
+      34px 58px 0 rgba(255,253,250,.78),39px 65px 0 rgba(30,41,69,.13),
+      -88px 87px 0 rgba(229,238,248,.86),-83px 94px 0 rgba(30,41,69,.13),
+      4px 116px 0 rgba(222,223,240,.78),9px 123px 0 rgba(30,41,69,.13),
+      64px 139px 0 rgba(255,253,250,.76),69px 146px 0 rgba(30,41,69,.13),
+      -119px 151px 0 rgba(229,238,248,.88),-114px 158px 0 rgba(30,41,69,.13)!important;
+    filter:none!important;
+    opacity:.82!important;
+    animation:jokerTilesRise 7s ease-in-out infinite alternate!important;
+  }
+  .joker-mini-copy{
+    z-index:4!important;
+    align-self:center!important;
+    padding:18px!important;
+    border-left:2px solid rgba(30,41,69,.55)!important;
+    background:rgba(255,253,250,.64)!important;
+    box-shadow:8px 10px 0 rgba(30,41,69,.06)!important;
+    backdrop-filter:blur(8px)!important;
+    -webkit-backdrop-filter:blur(8px)!important;
+  }
+  .joker-mini-cards{z-index:3!important;transform:translateY(5px);filter:drop-shadow(7px 12px 0 rgba(30,41,69,.12)) saturate(.78)!important}
+  .joker-mini-cards img{border-radius:4px!important;box-shadow:0 0 0 1px rgba(30,41,69,.19),6px 8px 0 rgba(30,41,69,.14)!important;animation-duration:5.8s!important}
+  .joker-mini-scroll{z-index:7!important;bottom:-59px!important;background:rgba(255,253,250,.72)!important;box-shadow:7px 8px 0 rgba(30,41,69,.08)!important}
+  .joker-mini-stage:hover{transform:translateY(-3px) scale(1.012)!important}
+  @keyframes jokerGridStageFloat{0%,100%{translate:0 0}50%{translate:0 -4px}}
+  @keyframes jokerGridPlane{0%{transform:perspective(800px) rotateX(1deg) rotateZ(-.35deg)}100%{transform:perspective(800px) rotateX(3deg) rotateZ(.35deg)}}
+  @keyframes jokerTilesRise{0%{transform:translate(0,3px);filter:drop-shadow(2px 3px 0 rgba(30,41,69,.04))}100%{transform:translate(-3px,-5px);filter:drop-shadow(7px 9px 0 rgba(30,41,69,.12))}}
+  @media(max-width:800px){
+    .joker-mini-stage{top:168px!important;min-height:260px!important}
+    .joker-mini-stage:before{inset:0 -1% -2%!important;background-size:26px 26px!important}
+    .joker-mini-stage:after{right:15%!important;top:14%!important;transform:scale(.86)}
+    .joker-mini-copy{padding:14px!important}
+    .hero-top{margin-bottom:355px!important}
+  }
+  @media(max-width:430px){
+    .joker-mini-stage{top:164px!important;min-height:238px!important}
+    .joker-mini-stage:before{background-size:23px 23px!important}
+    .joker-mini-stage:after{right:12%!important;top:12%!important;opacity:.58!important}
+    .joker-mini-copy{padding:11px!important;border-left-width:1px!important}
+    .joker-mini-cards{transform:translateY(3px) scale(.94)}
+    .hero-top{margin-bottom:334px!important}
+  }
+  @media(prefers-reduced-motion:reduce){
+    .joker-mini-stage,.joker-mini-stage:before,.joker-mini-stage:after,.joker-mini-cards img{animation:none!important}
+  }
+</style>
 </head>
 <body>
   <div class="progress" aria-hidden="true"></div>
