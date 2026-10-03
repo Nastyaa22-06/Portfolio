@@ -169,6 +169,94 @@ a:focus-visible,button:focus-visible{
   @media(prefers-reduced-motion:reduce){.joker-mini-cards img,.joker-mini-scroll{animation:none}.joker-mini-stage:hover{transform:none}}
 </style>
 
+<style id="joker-liquid-installation">
+  .joker-mini-stage{
+    border:0!important;
+    background:transparent!important;
+    box-shadow:none!important;
+    backdrop-filter:none!important;
+    -webkit-backdrop-filter:none!important;
+    isolation:isolate;
+    overflow:visible;
+    animation:jokerStageDrift 6.8s ease-in-out infinite;
+    transform-origin:54% 52%;
+  }
+  .joker-mini-stage:before,.joker-mini-stage:after{
+    content:"";
+    position:absolute;
+    z-index:-1;
+    pointer-events:none;
+  }
+  .joker-mini-stage:before{
+    inset:-18% -12% -20% -18%;
+    border-radius:43% 57% 61% 39% / 38% 46% 54% 62%;
+    background:
+      radial-gradient(circle at 28% 34%,rgba(255,255,255,.92) 0 7%,transparent 24%),
+      radial-gradient(circle at 73% 63%,rgba(184,84,214,.58),transparent 40%),
+      conic-gradient(from 35deg,rgba(111,205,255,.72),rgba(255,128,196,.64),rgba(173,128,255,.74),rgba(111,205,255,.72));
+    filter:blur(25px) saturate(1.2);
+    opacity:.72;
+    mix-blend-mode:multiply;
+    animation:jokerSlimeMorph 8s ease-in-out infinite alternate;
+  }
+  .joker-mini-stage:after{
+    width:78%;height:80%;right:-8%;top:-10%;
+    border:2px solid rgba(255,255,255,.7);
+    border-radius:58% 42% 35% 65% / 48% 61% 39% 52%;
+    background:radial-gradient(circle at 50% 50%,transparent 35%,rgba(255,255,255,.38) 37%,transparent 58%);
+    box-shadow:0 0 28px rgba(101,167,255,.7),inset 0 0 32px rgba(255,117,193,.42);
+    filter:blur(.2px);
+    opacity:.82;
+    animation:jokerGlowOrbit 10s linear infinite;
+  }
+  .joker-mini-copy{
+    padding:18px 4px;
+    text-shadow:0 1px 0 rgba(255,255,255,.85),0 0 20px rgba(255,255,255,.72);
+  }
+  .joker-mini-copy small{color:#354263!important}
+  .joker-mini-copy strong{color:#17213d;text-shadow:0 2px 0 rgba(255,255,255,.82),0 0 28px rgba(145,115,255,.22)}
+  .joker-mini-copy em{color:#17213d!important}
+  .joker-mini-cards{filter:drop-shadow(0 20px 22px rgba(75,44,130,.24))}
+  .joker-mini-cards img{
+    border-color:rgba(255,255,255,.96)!important;
+    box-shadow:0 0 0 1px rgba(58,47,105,.2),0 18px 38px rgba(55,35,104,.3),0 0 25px rgba(157,100,255,.28)!important;
+  }
+  .joker-mini-scroll{
+    border-color:rgba(255,255,255,.78)!important;
+    background:rgba(255,255,255,.46)!important;
+    box-shadow:0 0 24px rgba(132,91,255,.26),inset 0 0 18px rgba(255,255,255,.56)!important;
+    backdrop-filter:blur(13px);
+    -webkit-backdrop-filter:blur(13px);
+  }
+  .joker-mini-stage:hover{
+    transform:translateY(-8px) rotate(-.8deg) scale(1.025)!important;
+    box-shadow:none!important;
+  }
+  @keyframes jokerStageDrift{
+    0%,100%{translate:0 0;rotate:-.25deg}
+    35%{translate:7px -8px;rotate:.65deg}
+    70%{translate:-5px -3px;rotate:-.7deg}
+  }
+  @keyframes jokerSlimeMorph{
+    0%{border-radius:43% 57% 61% 39% / 38% 46% 54% 62%;transform:rotate(-4deg) scale(.96)}
+    45%{border-radius:62% 38% 44% 56% / 55% 35% 65% 45%;transform:rotate(5deg) scale(1.04)}
+    100%{border-radius:36% 64% 57% 43% / 64% 52% 48% 36%;transform:rotate(-1deg) scale(1)}
+  }
+  @keyframes jokerGlowOrbit{
+    0%{transform:rotate(0deg) translate(2px,0);border-radius:58% 42% 35% 65% / 48% 61% 39% 52%}
+    50%{transform:rotate(180deg) translate(8px,-4px);border-radius:37% 63% 58% 42% / 62% 39% 61% 38%}
+    100%{transform:rotate(360deg) translate(2px,0);border-radius:58% 42% 35% 65% / 48% 61% 39% 52%}
+  }
+  @media(max-width:800px){
+    .joker-mini-stage:before{inset:-10% -5% -12% -8%;filter:blur(20px);opacity:.62}
+    .joker-mini-stage:after{width:66%;height:72%;right:0;top:-5%}
+    .joker-mini-copy{padding:10px 0}
+  }
+  @media(prefers-reduced-motion:reduce){
+    .joker-mini-stage,.joker-mini-stage:before,.joker-mini-stage:after{animation:none!important}
+  }
+</style>
+
 <style id="drawn-arrow-style">
 .drawn-arrow{
   display:inline-block;
