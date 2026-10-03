@@ -307,6 +307,63 @@ a:focus-visible,button:focus-visible{
   }
 }
 </style>
+<style id="joker-liquid-refinement">
+  /* Editorial liquid glass: playful movement, restrained to the portfolio palette. */
+  .joker-mini-stage{
+    top:15vh!important;
+    animation:jokerStageDriftRefined 8.5s ease-in-out infinite!important;
+  }
+  .joker-mini-stage:before{
+    inset:-10% -8% -12% -10%!important;
+    border:1px solid rgba(255,255,255,.7)!important;
+    background:linear-gradient(135deg,rgba(255,255,255,.58),rgba(222,223,240,.3) 48%,rgba(229,238,248,.36))!important;
+    box-shadow:0 22px 55px rgba(30,41,69,.13),inset 0 1px 0 rgba(255,255,255,.85)!important;
+    filter:blur(1px)!important;
+    opacity:.92!important;
+    mix-blend-mode:normal!important;
+    backdrop-filter:blur(17px)!important;
+    -webkit-backdrop-filter:blur(17px)!important;
+    animation:jokerSlimeMorphRefined 11s cubic-bezier(.55,.05,.42,.95) infinite alternate!important;
+  }
+  .joker-mini-stage:after{
+    width:72%!important;height:78%!important;right:-2%!important;top:-3%!important;
+    border:1px solid rgba(30,41,69,.2)!important;
+    background:radial-gradient(circle at 34% 24%,rgba(255,255,255,.5),transparent 34%)!important;
+    box-shadow:none!important;
+    opacity:.58!important;
+    animation:jokerContourDrift 13s ease-in-out infinite alternate!important;
+  }
+  .joker-mini-copy{padding:18px 5px!important;text-shadow:0 1px 0 rgba(255,255,255,.88)!important}
+  .joker-mini-copy strong{color:#17213d!important;text-shadow:none!important}
+  .joker-mini-cards{filter:drop-shadow(0 18px 18px rgba(30,41,69,.2)) saturate(.82)!important}
+  .joker-mini-cards img{box-shadow:0 0 0 1px rgba(30,41,69,.18),0 16px 30px rgba(30,41,69,.24)!important}
+  .joker-mini-scroll{border-color:rgba(30,41,69,.32)!important;background:rgba(255,255,255,.58)!important;box-shadow:0 12px 30px rgba(30,41,69,.11)!important}
+  .joker-mini-stage:hover{transform:translateY(-4px) rotate(-.35deg) scale(1.015)!important}
+  @keyframes jokerStageDriftRefined{0%,100%{translate:0 0;rotate:-.15deg}50%{translate:3px -4px;rotate:.28deg}}
+  @keyframes jokerSlimeMorphRefined{
+    0%{border-radius:42% 58% 55% 45% / 44% 40% 60% 56%;transform:rotate(-1.2deg) scale(.985)}
+    50%{border-radius:56% 44% 47% 53% / 53% 57% 43% 47%;transform:rotate(1.4deg) scale(1.015)}
+    100%{border-radius:48% 52% 61% 39% / 58% 45% 55% 42%;transform:rotate(-.4deg) scale(1)}
+  }
+  @keyframes jokerContourDrift{
+    0%{transform:translate(-3px,2px) rotate(-2deg);border-radius:58% 42% 46% 54% / 48% 57% 43% 52%}
+    100%{transform:translate(5px,-4px) rotate(3deg);border-radius:43% 57% 59% 41% / 59% 42% 58% 41%}
+  }
+  @media(max-width:800px){
+    .joker-mini-stage{top:165px!important}
+    .joker-mini-stage:before{inset:-5% -2% -7% -3%!important;filter:blur(.5px)!important}
+    .joker-mini-stage:after{width:62%!important;height:68%!important;right:1%!important;top:3%!important}
+    .hero-top{margin-bottom:340px!important}
+  }
+  @media(max-width:430px){
+    .joker-mini-stage{top:160px!important}
+    .joker-mini-copy{padding:8px 0!important}
+    .hero-top{margin-bottom:320px!important}
+  }
+  @media(prefers-reduced-motion:reduce){
+    .joker-mini-stage,.joker-mini-stage:before,.joker-mini-stage:after{animation:none!important}
+  }
+</style>
 </head>
 <body>
   <div class="progress" aria-hidden="true"></div>
