@@ -833,6 +833,33 @@ a:focus-visible,button:focus-visible{
   }
 </style>
 
+
+<style id="joker-card-link-spacing-fix">
+  .joker-mini-stage{min-height:400px!important}
+  .joker-catch-scene{height:330px!important;transform-style:flat!important}
+  .joker-catch-cube{z-index:2}
+  .joker-catch-link{
+    z-index:100!important;
+    bottom:-50px!important;
+    isolation:isolate;
+  }
+  .joker-mini-scroll{z-index:101!important;bottom:-104px!important}
+  @media(max-width:800px){
+    .joker-mini-stage{min-height:360px!important}
+    .joker-catch-scene{height:282px!important}
+    .joker-catch-link{bottom:-44px!important}
+    .joker-mini-scroll{bottom:-96px!important}
+    .hero-top{margin-bottom:420px!important}
+  }
+  @media(max-width:430px){
+    .joker-mini-stage{min-height:335px!important}
+    .joker-catch-scene{height:252px!important}
+    .joker-catch-link{bottom:-40px!important}
+    .joker-mini-scroll{bottom:-91px!important}
+    .hero-top{margin-bottom:392px!important}
+  }
+</style>
+
 </head>
 <body>
   <div class="progress" aria-hidden="true"></div>
