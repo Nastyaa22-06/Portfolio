@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://anastasiaioseliani.space/</loc>
-  </url>
-  <url>
-    <loc>https://anastasiaioseliani.space/cv.html</loc>
-  </url>
+  <url><loc>https://anastasiaioseliani.space/</loc></url>
+  <url><loc>https://anastasiaioseliani.space/cv.html</loc></url>
+  <url><loc>https://anastasiaioseliani.space/projects.html</loc></url>
+  <url><loc>https://anastasiaioseliani.space/article-oasis.html</loc></url>
+  <url><loc>https://anastasiaioseliani.space/article-ux.html</loc></url>
+  <url><loc>https://anastasiaioseliani.space/article-travel.html</loc></url>
+  <url><loc>https://anastasiaioseliani.space/article-bits.html</loc></url>
 </urlset>
